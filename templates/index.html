@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<title>What do I eat?</title>
+	</head>
+	<body>
+		Enter your location!:
+		<form action="/" method="post">
+			<input type="text" name="location">
+			<input type="submit" value="Find!">
+		</form>
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				Results:
+				<pre>
+					{% for message in messages %}
+{{message}}
+					{% endfor %}
+				</pre>
+			{% endif %}
+		{% endwith %}
+	</body>
+</html>
