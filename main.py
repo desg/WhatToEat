@@ -25,15 +25,23 @@ class View(flask.views.MethodView):
 	def post(self):
 
 		address = str(flask.request.form['location'])
+
+
 		payload = {'term': term, 'radius_filter': radius_filter, 'location': address}
 		response = yelpRequest(foodsURL, payload, consumer_key, consumer_secret,
-								 token, token_secret)
+								token, token_secret)
 		foodlist = []
-		for i in range(0, len(response['businesses'])):
-			foodlist.append(response['businesses'][i]['name'].encode('utf_8'))
+
+		for business in response['businesses']:
+			foodlist.append([business['name'].encode('utf_8'), 
+							business['location']['display_address']])
 							
-			
-		flask.flash(random.choice(foodlist))
+		show = random.choice(foodlist)
+
+		showMsg = "Name: %s \nAddress: %s" % (show[0], ' '.join(show[1]))
+
+		flask.flash(showMsg)
+
 		return self.get()
 
 		
