@@ -4,7 +4,7 @@
 	</head>
 	<body>
 		Enter your location!:
-		<form action="/" method="post">
+		<form name="main" action="/" onsubmit="return validateForm()" method="post">
 			<input type="text" name="location">
 			<input type="submit" value="Find!">
 		</form>
@@ -20,3 +20,15 @@
 		{% endwith %}
 	</body>
 </html>
+
+<script>
+	function validateForm()
+	{
+	var x=document.forms["main"]["location"].value;
+	if (x==null || x=="")
+  		{
+  			alert("You Must have a location!");
+  			return false;
+  		}
+	}
+</script>
